@@ -65,7 +65,7 @@ chmod +x ip_forwarder.py
 # Ubuntu/Debian
 apt update
 apt install python3 python3-pip iptables dnsutils -y
-pip3 install psutil
+pip3 install psutil/ apt install python3-psutil
 
 # CentOS/RHEL
 yum install python3 python3-pip iptables bind-utils -y
