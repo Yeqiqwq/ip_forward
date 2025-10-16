@@ -55,7 +55,6 @@ apt install python3 python3-pip iptables dnsutils -y
 apt install python3-psutil
 
 ### 3. 创建配置文件
-```bash
 # 创建默认配置文件
 python3 ip_forwarder.py --create-config
 
