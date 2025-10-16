@@ -1,6 +1,6 @@
-# BGP服务器转发脚本 - 简化版
+# 流量转发脚本
 
-一个功能强大的Python脚本，用于实现基于DNS解析的动态端口转发，支持全端口转发和完整的性能监控。
+一个Python脚本，用于实现基于DNS解析的动态端口转发，支持全端口转发和完整的性能监控。
 
 ## 🚀 功能特性
 
@@ -29,19 +29,6 @@
 - Linux发行版（推荐Ubuntu 18.04+、CentOS 7+）
 - 需要root权限执行
 
-### 软件依赖
-```bash
-# Python 3.6+
-python3 --version
-
-# 系统工具
-which iptables
-which nslookup
-
-# Python包依赖
-pip3 install psutil
-```
-
 ### 硬件建议
 - **CPU**：2核心以上（推荐4核心+）
 - **内存**：2GB以上（推荐4GB+）
@@ -65,12 +52,7 @@ chmod +x ip_forwarder.py
 # Ubuntu/Debian
 apt update
 apt install python3 python3-pip iptables dnsutils -y
-pip3 install psutil/ apt install python3-psutil
-
-# CentOS/RHEL
-yum install python3 python3-pip iptables bind-utils -y
-pip3 install psutil
-```
+apt install python3-psutil
 
 ### 3. 创建配置文件
 ```bash
@@ -80,62 +62,14 @@ python3 ip_forwarder.py --create-config
 # 编辑配置文件
 nano /etc/bgp_forwarder.json
 ```
-
-### 4. 配置文件示例
-```json
-{
-  "domain": "your-target-domain.com",
-  "dns_server": "223.5.5.5",
-  "backup_dns_servers": ["114.114.114.114", "8.8.8.8", "1.1.1.1"],
-  "check_interval": 5,
-  "timeout": 10,
-  "retry_attempts": 3,
-  "log_file": "/var/log/bgp_forwarder.log",
-  "log_level": "INFO",
-  "log_interval": 30,
-  "iptables_chain_prefix": "BGP_FWD",
-  "max_errors": 10
-}
-```
-
 ## 🔧 使用方法
 
 ### 基本命令
-
-#### 创建配置文件
-```bash
-python3 ip_forwarder.py --create-config
-```
 
 #### 检查系统配置
 ```bash
 python3 ip_forwarder.py --check-system
 ```
-
-#### 启动服务（前台）
-```bash
-# 使用默认配置
-python3 ip_forwarder.py
-
-# 指定配置文件
-python3 ip_forwarder.py -c /path/to/config.json
-
-# 临时覆盖域名
-python3 ip_forwarder.py --domain example.com
-```
-
-#### 后台运行
-```bash
-# 使用nohup后台运行
-nohup python3 ip_forwarder.py -c /etc/bgp_forwarder.json > /dev/null 2>&1 &
-
-# 查看进程
-ps aux | grep ip_forwarder
-
-# 停止服务
-pkill -f ip_forwarder.py
-```
-
 ### 服务管理
 
 #### 创建systemd服务（推荐）
